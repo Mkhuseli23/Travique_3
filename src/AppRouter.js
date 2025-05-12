@@ -10,6 +10,7 @@ import ForgotPassword from './components/ForgotPassword';
 import Fitness from './components/Fitness';
 import SmartSuggestions from './components/SmartSuggestions';
 import GetStarted from './components/GetStarted'; // Ensure it's imported
+import Itinerary from './components/Itinerary';
 
 const AppLayout = () => {
   const location = useLocation();
@@ -32,6 +33,7 @@ const AppLayout = () => {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/fitness" element={<Fitness />} />
           <Route path="/suggestions" element={<SmartSuggestions />} />
+          <Route path="/itinerary" element={<Itinerary />} />
         </Routes>
       </div>
 
