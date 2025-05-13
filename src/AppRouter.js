@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Home from './components/Home';
 import About from './components/About';
 import Contact from './components/Contact';
@@ -9,12 +9,14 @@ import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
 import Fitness from './components/Fitness';
 import SmartSuggestions from './components/SmartSuggestions';
-import GetStarted from './components/GetStarted'; // Ensure it's imported
-import Itinerary from './components/Itinerary';
+import GetStarted from './components/GetStarted';
+import Dashboard from './components/Dashboard';
+import NotFound from './components/NotFound';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const AppLayout = () => {
   const location = useLocation();
-  const hideNavbarRoutes = ['/getstarted', '/login', '/register', '/forgotpassword'];
+  const hideNavbarRoutes = ['/', '/getstarted', '/login', '/register', '/forgotpassword'];
 
   const showNavbar = !hideNavbarRoutes.includes(location.pathname);
 
@@ -33,7 +35,8 @@ const AppLayout = () => {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/fitness" element={<Fitness />} />
           <Route path="/suggestions" element={<SmartSuggestions />} />
-          <Route path="/itinerary" element={<Itinerary />} />
+          <Route path="/dashboard" element={<Dashboard />} errorElement={<ErrorBoundary />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
 

@@ -1,34 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { auth } from './firebase/firebase';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './css/Navbar.css';
 
-function Navbar() {
-  const [userEmail, setUserEmail] = useState(null);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        setUserEmail(user.email);
-      } else {
-        setUserEmail(null);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
-
+const Navbar = () => {
   return (
     <nav className="navbar">
-      <div className="navbar-logo">Travique 3</div>
-      {userEmail && <div className="navbar-user">Logged in as: {userEmail}</div>}
-      <div className="navbar-links">
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
-        <Link to="/itinerary">Itinerary</Link>
-      </div>
+      <ul className="navbar-list">
+        <li>
+          <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/about" className={({ isActive }) => (isActive ? 'active' : '')}>
+            About
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/contact" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Contact
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/dashboard" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Dashboard
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/itinerary" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Itinerary
+          </NavLink>
+        </li>
+      </ul>
     </nav>
   );
-}
+};
 
 export default Navbar;

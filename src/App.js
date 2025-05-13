@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import Home from './components/Home';
 import About from './components/About';
 import Contact from './components/Contact';
-import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
 import ForgotPassword from './components/ForgotPassword';
@@ -16,6 +15,7 @@ import TripPlanner from './components/TripPlanner';
 import FoodFinder from './components/FoodFinder';
 import HealthTips from './components/HealthTips';
 import Expenses from './components/Expenses';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function ScrollToTop() {
   const location = useLocation();
@@ -28,26 +28,10 @@ function ScrollToTop() {
 function Layout() {
   const location = useLocation();
 
-  const hideNavbarRoutes = [
-    "/login",
-    "/register",
-    "/forgot-password",
-    "/dashboard",
-    "/dashboard/fitness",
-    "/dashboard/suggestions",
-    "/dashboard/weather",
-    "/dashboard/trip-planner",
-    "/dashboard/food-finder",
-    "/dashboard/health-tips",
-    "/dashboard/expenses"
-  ];
-
-  const showNavbar = !hideNavbarRoutes.includes(location.pathname);
-
+  // Navbar removed entirely
   return (
     <>
       <ScrollToTop />
-      {showNavbar && <Navbar />}
       <div className="main-content">
         <Outlet />
       </div>
@@ -59,6 +43,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <ErrorBoundary />,
     children: [
       { index: true, element: <Home /> },
       { path: "about", element: <About /> },
@@ -69,6 +54,7 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <Dashboard />,
+        errorElement: <ErrorBoundary />,
         children: [
           { path: "fitness", element: <Fitness /> },
           { path: "suggestions", element: <SmartSuggestions /> },
