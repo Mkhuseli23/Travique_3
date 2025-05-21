@@ -16,27 +16,31 @@ const TripPlanner = () => {
     "Garden Route",
   ];
 
+  // Updated mediaMap with Cape Town YouTube embed url and types
   const mediaMap = {
     "Cape Town, South Africa": {
-      type: "video",
-      url: "https://youtu.be/TnSfqqwQh_Q?si=OTfiKobHXv3KPqIY",
+      type: "youtube",
+      url: "https://www.youtube.com/embed/69DzEF_RAcA",
     },
     "Durban, South Africa": {
       type: "youtube",
       url: "https://www.youtube.com/embed/klliZHotGN4",
     },
     "Kruger National Park": {
-      type: "video",
-      url: "https://player.vimeo.com/external/387609072.sd.mp4?s=dc3be0efc4f41f4edbd31291d7e15eb8b6ccbb69&profile_id=165",
-    },
+  type: "youtube",
+  url: "https://www.youtube.com/embed/ZnbsthIPMiw",
+},
+
     "Victoria Falls": {
-      type: "image",
-      url: "https://images.unsplash.com/photo-1602766834081-431f7a2a09e0?auto=format&fit=crop&w=800&q=80",
-    },
+  type: "youtube",
+  url: "https://www.youtube.com/embed/H0LG5rOo_9w",
+},
+
     "Garden Route": {
-      type: "image",
-      url: "https://images.unsplash.com/photo-1533038590840-1cde6e668a91?auto=format&fit=crop&w=800&q=80",
-    },
+  type: "youtube",
+  url: "https://www.youtube.com/embed/HKhLL80Z_b4", // Use the embed version
+},
+
   };
 
   const handlePlanTrip = () => {
@@ -71,7 +75,11 @@ const TripPlanner = () => {
           <h4>🌍 Suggested Destinations:</h4>
           <div className="suggestion-tags">
             {suggestedDestinations.map((place, idx) => (
-              <button key={idx} onClick={() => setDestination(place)} className="tag">
+              <button
+                key={idx}
+                onClick={() => setDestination(place)}
+                className="tag"
+              >
                 {place}
               </button>
             ))}
@@ -123,10 +131,18 @@ const TripPlanner = () => {
       {tripPlan && (
         <div className="trip-details">
           <h3>📝 Your Trip Plan</h3>
-          <p><strong>Destination:</strong> {tripPlan.destination}</p>
-          <p><strong>Start:</strong> {tripPlan.startDate}</p>
-          <p><strong>End:</strong> {tripPlan.endDate}</p>
-          <p><strong>Activities:</strong></p>
+          <p>
+            <strong>Destination:</strong> {tripPlan.destination}
+          </p>
+          <p>
+            <strong>Start:</strong> {tripPlan.startDate}
+          </p>
+          <p>
+            <strong>End:</strong> {tripPlan.endDate}
+          </p>
+          <p>
+            <strong>Activities:</strong>
+          </p>
           <ul>
             {tripPlan.activities.map((activity, index) => (
               <li key={index}>✅ {activity}</li>

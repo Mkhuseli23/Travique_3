@@ -1,61 +1,127 @@
-/* src/css/Home.css */
+/* Reset for full screen background */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Main section */
 .home-section {
-    padding: 50px;
-    text-align: center;
-    background-color: #f0f8ff;
-  }
-  
-  .widgets-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 30px;
-    gap: 20px;
-  }
-  
-  .widget {
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 200px;
-    transition: transform 0.3s ease;
-  }
-  
-  .widget:hover {
-    transform: translateY(-5px);
-  }
-  
-  .widget-icon {
-    font-size: 2.5rem;
-    color: #246071;
-    margin-bottom: 10px;
-  }
-  
-  .widget h3 {
-    margin: 10px 0;
-    font-size: 1.2rem;
-    color: #333;
-  }
-  
-  .widget p {
-    font-size: 0.95rem;
-    color: #555;
-  }
-  
-  .get-started-btn {
-    display: inline-block;
-    margin-top: 40px;
-    padding: 12px 30px;
-    background-color: #246071;
-    color: #fff;
-    border-radius: 25px;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-  }
-  
-  .get-started-btn:hover {
-    background-color: #1b4a58;
-  }
-  
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  color: white;
+  text-align: center;
+  padding-top: 5rem;
+  z-index: 1;
+}
+
+/* Slideshow background container */
+.slideshow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Individual slides */
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0;
+  animation: slideShow 15s infinite;
+  z-index: 0;
+}
+
+.slide:nth-child(1) {
+  animation-delay: 0s;
+}
+.slide:nth-child(2) {
+  animation-delay: 5s;
+}
+.slide:nth-child(3) {
+  animation-delay: 10s;
+}
+
+/* Keyframes for fade transition */
+@keyframes slideShow {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  30% { opacity: 1; }
+  40% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Ensure content appears above background */
+.widgets-container,
+h2,
+p,
+.get-started-btn {
+  position: relative;
+  z-index: 2;
+}
+
+/* Widgets layout */
+.widgets-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+/* Individual widget */
+.widget {
+  background-color: #ffffffcc; /* Slight transparency */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 200px;
+  transition: transform 0.3s ease;
+  color: #000;
+}
+
+.widget:hover {
+  transform: translateY(-5px);
+}
+
+.widget-icon {
+  font-size: 2.5rem;
+  color: #246071;
+  margin-bottom: 10px;
+}
+
+.widget h3 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.widget p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Get Started button */
+.get-started-btn {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 12px 30px;
+  background-color: #246071;
+  color: #fff;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.get-started-btn:hover {
+  background-color: #1b4a58;
+}

@@ -5,21 +5,21 @@ import "./css/foodfinder.css";
 
 const FoodFinder = () => {
   const [query, setQuery] = useState("");
-  const [meal, setMeal] = useState(null);
+  const [meals, setMeals] = useState([]);
   const [error, setError] = useState("");
 
   const searchMeal = async () => {
-    setMeal(null);
+    setMeals([]);
     setError("");
 
     try {
-      const res = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?f=a`);
+      const res = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
       const data = res.data;
 
       if (!data.meals) {
-        setError("No meal found.");
+        setError("No meals found.");
       } else {
-        setMeal(data.meals[0]); // just showing the first match
+        setMeals(data.meals);
       }
     } catch (err) {
       setError("Error fetching meal data.");
@@ -41,17 +41,21 @@ const FoodFinder = () => {
 
       {error && <p className="error">{error}</p>}
 
-      {meal && (
-        <div className="meal-info">
-          <h3>{meal.strMeal}</h3>
-          <img src={meal.strMealThumb} alt={meal.strMeal} />
-          <p><strong>Category:</strong> {meal.strCategory}</p>
-          <p><strong>Area:</strong> {meal.strArea}</p>
-          <p><strong>Instructions:</strong> {meal.strInstructions.slice(0, 200)}...</p>
-          <a href={meal.strSource || meal.strYoutube} target="_blank" rel="noopener noreferrer">
-            View Full Recipe
-          </a>
-        </div>
+      {meals.length > 0 && (
+        <ul className="meals-list">
+          {meals.map((meal) => (
+            <li key={meal.idMeal} className="meal-info">
+              <h3>{meal.strMeal}</h3>
+              <img src={meal.strMealThumb} alt={meal.strMeal} />
+              <p><strong>Category:</strong> {meal.strCategory}</p>
+              <p><strong>Area:</strong> {meal.strArea}</p>
+              <p><strong>Instructions:</strong> {meal.strInstructions.slice(0, 200)}...</p>
+              <a href={meal.strSource || meal.strYoutube} target="_blank" rel="noopener noreferrer">
+                View Full Recipe
+              </a>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );

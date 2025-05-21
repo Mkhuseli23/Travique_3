@@ -1,3 +1,15 @@
+.contact-background {
+  background-image: url('./images/about.jpg'); /* 👈 update path if needed */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 80px 20px;
+  min-height: 100vh; /* optional: makes it full screen height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .contact-container {
     max-width: 600px;
     margin: 40px auto;

@@ -1,0 +1,66 @@
+/* src/components/admin/const/css/dashboard.css */
+
+/* Overall dashboard wrapper */
+.dashboard {
+  display: flex;
+  height: 100vh;
+  background-color: #f3f4f6;
+}
+
+/* Main content area (to the right of the sidebar) */
+.dashboard-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inner scrolling container for page content */
+.dashboard-content .main-content {
+  padding: 24px;
+  background-color: #f7f7f7;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Grid for the three widgets */
+.widgets-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+@media (min-width: 768px) {
+  .widgets-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Individual widget cards */
+.widget {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+/* Widget title */
+.widget h3 {
+  margin-bottom: 8px;
+  font-size: 1.125rem;
+  color: #246071;
+}
+
+/* Widget body text */
+.widget p {
+  color: #545454;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.chart-container {
+  margin-top: 40px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

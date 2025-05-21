@@ -1,47 +1,56 @@
+.about-background {
+  background-image: url('./images/about.jpg'); /* keep your relative path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 60px 20px; /* space around the container */
+  /* no max-width or other container styles here */
+}
+
 .about-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    background-color: #f9f9f9;
-    text-align: center;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .about-container h1 {
-    font-size: 2.5rem;
-    color: #246071;
-    margin-bottom: 20px;
-  }
-  
-  .about-container p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 40px;
-  }
-  
-  .about-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-  }
-  
-  .feature-box {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    border-left: 5px solid #246071;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  }
-  
-  .feature-box h3 {
-    margin-bottom: 10px;
-    color: #246071;
-    font-size: 1.2rem;
-  }
-  
-  .feature-box p {
-    color: #333;
-    font-size: 0.95rem;
-  }
-  
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10%;
+}
+
+.about-container h1 {
+  font-size: 2.5rem;
+  color: #246071;
+  margin-bottom: 20px;
+}
+
+.about-container p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.feature-box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 5px solid #246071;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.feature-box h3 {
+  margin-bottom: 10px;
+  color: #246071;
+  font-size: 1.2rem;
+}
+
+.feature-box p {
+  color: #333;
+  font-size: 0.95rem;
+}

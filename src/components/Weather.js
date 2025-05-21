@@ -4,26 +4,27 @@ import "./css/weather.css";
 
 const Weather = () => {
   const [city, setCity] = useState("");
-  const [weather, setWeather] = useState(null);
+  const [days, setDays] = useState(1);
+  const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const getWeather = async () => {
     setLoading(true);
     setError("");
-    setWeather(null);
+    setForecast(null);
 
     try {
-      const apiKey = "2bb5282f4c06461aacc135506252204"; // Weatherstack API key
+      const apiKey = "ffec0c65a5424acd998133838252105"; // Replace with your WeatherAPI key
       const response = await fetch(
-        `http://api.weatherstack.com/current?access_key=${apiKey}&query=${city}`
+        `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=${days}&aqi=no&alerts=no`
       );
       const data = await response.json();
 
       if (data.error) {
-        setError(data.error.info || "Error fetching weather");
+        setError(data.error.message || "Error fetching weather");
       } else {
-        setWeather(data);
+        setForecast(data);
       }
     } catch (err) {
       setError("Failed to fetch weather data.");
@@ -42,19 +43,29 @@ const Weather = () => {
           value={city}
           onChange={(e) => setCity(e.target.value)}
         />
+        <select value={days} onChange={(e) => setDays(Number(e.target.value))}>
+          <option value={1}>1 Day</option>
+          <option value={2}>2 Days</option>
+          <option value={3}>3 Days</option>
+        </select>
         <button onClick={getWeather}>Get Weather</button>
       </div>
 
       {loading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
 
-      {weather && (
+      {forecast && (
         <div className="weather-result">
-          <h3>{weather.location.name}, {weather.location.country}</h3>
-          <p>🌡 Temp: {weather.current.temperature}°C</p>
-          <p>☁️ Condition: {weather.current.weather_descriptions[0]}</p>
-          <p>💨 Wind: {weather.current.wind_speed} km/h</p>
-          <p>💧 Humidity: {weather.current.humidity}%</p>
+          <h3>{forecast.location.name}, {forecast.location.country}</h3>
+          {forecast.forecast.forecastday.map((day) => (
+            <div key={day.date} className="weather-day">
+              <h4>{day.date}</h4>
+              <p>🌡 Avg Temp: {day.day.avgtemp_c}°C</p>
+              <p>☁️ Condition: {day.day.condition.text}</p>
+              <p>💨 Max Wind: {day.day.maxwind_kph} km/h</p>
+              <p>💧 Humidity: {day.day.avghumidity}%</p>
+            </div>
+          ))}
         </div>
       )}
     </div>

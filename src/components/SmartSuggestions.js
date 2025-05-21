@@ -1,8 +1,6 @@
 // src/components/SmartSuggestions.js
 import React from 'react';
 import './css/suggestions.css';
-import Sidebar from './const/sidebar';
-import Header from './const/Header';
 
 const SmartSuggestions = () => {
   return (

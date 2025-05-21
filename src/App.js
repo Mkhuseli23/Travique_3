@@ -17,6 +17,13 @@ import FoodFinder from './components/FoodFinder';
 import HealthTips from './components/HealthTips';
 import Expenses from './components/Expenses';
 
+import AdminDashboard from './components/admin/AdminDashboard';
+import UsersPage from './components/admin/UsersPage';
+import ReportPage from './components/admin/ReportPage';
+import SettingsPage from "./components/admin/SettingsPage";
+import AuditTrail from "./components/admin/AuditTrial";
+
+
 function ScrollToTop() {
   const location = useLocation();
   useEffect(() => {
@@ -81,6 +88,26 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "admin",
+    element: <AdminDashboard />,
+  },
+  {
+    path: "users",
+    element: <UsersPage />,
+  },
+  {
+    path: "report",
+    element: <ReportPage />
+  },
+  {
+    path: "settings",
+    element: <SettingsPage />
+  },
+  {
+    path: "audit",
+    element: <AuditTrail/>
+  }
 ]);
 
 function App() {

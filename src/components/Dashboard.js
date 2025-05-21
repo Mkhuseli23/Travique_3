@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Sidebar from './const/sidebar';
 import Header from './const/Header';
 import { Outlet } from 'react-router-dom';
-import './css/dashboard.css'; // Import styles
+import './css/dashboard.css';
+import { auth } from './firebase/firebase';
+import { logAudit } from './admin/LogAudit';
 
 const Dashboard = ({ userName = 'Mkhuseli Mditshwa' }) => {
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (user) {
+      logAudit(user, 'Visited Dashboard Page');
+    }
+  }, []);
+
   return (
     <div className="dashboard">
       <Sidebar />
@@ -31,7 +40,7 @@ const Dashboard = ({ userName = 'Mkhuseli Mditshwa' }) => {
             </div>
           </div>
 
-          {/* Child route outlet */}
+          {/* Render nested routes */}
           <Outlet />
         </div>
       </div>

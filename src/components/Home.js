@@ -1,11 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaMapMarkedAlt, FaCloudSun, FaMoneyBillWave, FaUtensils, FaHeartbeat } from 'react-icons/fa';
+import {
+  FaMapMarkedAlt,
+  FaCloudSun,
+  FaMoneyBillWave,
+  FaUtensils,
+  FaHeartbeat
+} from 'react-icons/fa';
+import travelWorld from './css/images/travel-world.jpg';
+import capeTown from './css/images/cape-town-1-2-1110x700.jpg';
 import './css/Home.css';
 
 const Home = () => {
   return (
     <section className="home-section">
+      {/* Slideshow Background */}
+      <div className="slideshow-container">
+        <img src={travelWorld} alt="Background 1" className="slide" />
+        <img src={capeTown} alt="Background 2" className="slide" />
+        <img src={travelWorld} alt="Background 3" className="slide" />
+      </div>
+
       <h2>Welcome to Travique 3</h2>
       <p>Your Smart Travel Companion</p>
 

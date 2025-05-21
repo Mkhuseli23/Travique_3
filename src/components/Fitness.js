@@ -1,7 +1,5 @@
 // src/components/Fitness.js
 import React from 'react';
-import Sidebar from './const/sidebar';
-import Header from './const/Header';
 import './css/fitness.css';
 
 const Fitness = () => {
