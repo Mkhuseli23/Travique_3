@@ -1,6 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaMapMarkedAlt, FaCloudSun, FaUtensils, FaMoneyBillWave, FaHeartbeat } from 'react-icons/fa';
+import {
+  FaTachometerAlt,
+  FaMapMarkedAlt,
+  FaCloudSun,
+  FaUtensils,
+  FaMoneyBillWave,
+  FaHeartbeat
+} from 'react-icons/fa';
 import '../css/sidebar.css';
 
 const Sidebar = () => {
@@ -8,6 +15,11 @@ const Sidebar = () => {
     <div className="sidebar">
       <h3>Dashboard</h3>
       <ul>
+        <li>
+          <Link to="/dashboard">
+            <FaTachometerAlt className="icon" /> Dashboard
+          </Link>
+        </li>
         <li>
           <Link to="/dashboard/trip-planner">
             <FaMapMarkedAlt className="icon" /> Trip Planner

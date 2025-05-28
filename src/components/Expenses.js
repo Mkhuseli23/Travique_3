@@ -1,5 +1,18 @@
-// components/Expenses.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { db, auth } from "./firebase/firebase";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  query,
+  where,
+  onSnapshot,
+  orderBy,
+  serverTimestamp,
+} from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 import "./css/expenses.css";
 
 const Expenses = () => {
@@ -7,24 +20,89 @@ const Expenses = () => {
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("General");
   const [expenses, setExpenses] = useState([]);
+  const [user, setUser] = useState(null);
+  const [editingId, setEditingId] = useState(null);
 
-  const addExpense = () => {
-    if (!description || !amount) return;
+  // Watch user login
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
-    const newExpense = {
-      id: Date.now(),
+  // Listen for changes in expenses
+  useEffect(() => {
+    if (!user) return;
+
+    const q = query(
+      collection(db, "expenses"),
+      where("userId", "==", user.uid),
+      orderBy("createdAt", "desc")
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const userExpenses = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setExpenses(userExpenses);
+    }, (error) => {
+      console.error("Error fetching expenses:", error);
+    });
+
+    return () => unsubscribe();
+  }, [user]);
+
+  // Add or Update expense
+  const handleSubmit = async () => {
+    if (!description || !amount || !user) return;
+
+    const expenseData = {
       description,
       amount: parseFloat(amount),
       category,
+      userId: user.uid,
+      createdAt: serverTimestamp(),
     };
 
-    setExpenses([...expenses, newExpense]);
-    setDescription("");
-    setAmount("");
-    setCategory("General");
+    try {
+      if (editingId) {
+        const expenseRef = doc(db, "expenses", editingId);
+        await updateDoc(expenseRef, {
+          ...expenseData,
+          createdAt: serverTimestamp(), // update timestamp
+        });
+        setEditingId(null);
+      } else {
+        await addDoc(collection(db, "expenses"), expenseData);
+      }
+      setDescription("");
+      setAmount("");
+      setCategory("General");
+    } catch (err) {
+      console.error("Error adding/updating expense:", err);
+    }
   };
 
-  const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+  // Delete expense
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, "expenses", id));
+    } catch (err) {
+      console.error("Error deleting expense:", err);
+    }
+  };
+
+  // Start editing
+  const handleEdit = (expense) => {
+    setEditingId(expense.id);
+    setDescription(expense.description);
+    setAmount(expense.amount);
+    setCategory(expense.category);
+  };
+
+  const total = expenses.reduce((sum, e) => sum + (e.amount || 0), 0);
 
   return (
     <div className="expenses-container">
@@ -53,15 +131,21 @@ const Expenses = () => {
           <option value="Entertainment">Entertainment</option>
           <option value="Utilities">Utilities</option>
         </select>
-        <button onClick={addExpense}>Add</button>
+        <button onClick={handleSubmit}>
+          {editingId ? "Update" : "Add"}
+        </button>
       </div>
 
       <div className="expense-list">
         {expenses.map((expense) => (
           <div key={expense.id} className="expense-item">
             <span>{expense.description}</span>
-            <span>R{expense.amount.toFixed(2)}</span>
+            <span>R{expense.amount?.toFixed(2)}</span>
             <span className="category">{expense.category}</span>
+            <div className="actions">
+              <button onClick={() => handleEdit(expense)}>✏️</button>
+              <button onClick={() => handleDelete(expense.id)}>🗑️</button>
+            </div>
           </div>
         ))}
       </div>

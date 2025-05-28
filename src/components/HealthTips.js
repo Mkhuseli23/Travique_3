@@ -1,44 +1,52 @@
-// components/HealthTips.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./css/healthtips.css";
 
-const healthTips = {
-  Nutrition: [
-    "Drink plenty of water daily.",
-    "Include fruits and vegetables in every meal.",
-    "Avoid processed foods and sugary drinks.",
-    "Eat whole grains and lean protein."
-  ],
-  Exercise: [
-    "Aim for at least 30 minutes of activity most days.",
-    "Stretch before and after workouts.",
-    "Try a mix of cardio, strength, and flexibility exercises.",
-    "Take short walks during breaks."
-  ],
-  MentalWellness: [
-    "Get at least 7–8 hours of sleep per night.",
-    "Practice mindfulness or meditation daily.",
-    "Take breaks to avoid burnout.",
-    "Talk to someone if you're feeling overwhelmed."
-  ],
-  Hygiene: [
-    "Wash your hands regularly.",
-    "Brush and floss twice a day.",
-    "Keep your living space clean.",
-    "Shower daily and wear clean clothes."
-  ]
-};
+import { db } from "./firebase/firebase"; // Adjust path if needed
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
 const HealthTips = () => {
+  const [tips, setTips] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTips = async () => {
+      try {
+        const q = query(collection(db, "health_tips"), orderBy("timestamp", "desc"));
+        const snapshot = await getDocs(q);
+
+        const categorizedTips = {};
+
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const category = data.category || "Uncategorized";
+          if (!categorizedTips[category]) {
+            categorizedTips[category] = [];
+          }
+          categorizedTips[category].push(data.title + ": " + data.description);
+        });
+
+        setTips(categorizedTips);
+      } catch (error) {
+        console.error("Error fetching health tips:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTips();
+  }, []);
+
+  if (loading) return <p>Loading health tips...</p>;
+
   return (
     <div className="health-tips-container">
       <h2>🧠 Health & Wellness Tips</h2>
 
-      {Object.entries(healthTips).map(([category, tips]) => (
+      {Object.entries(tips).map(([category, tipList]) => (
         <div key={category} className="tip-section">
-          <h3>{category.replace(/([A-Z])/g, ' $1').trim()}</h3>
+          <h3>{category.replace(/([A-Z])/g, " $1").trim()}</h3>
           <ul>
-            {tips.map((tip, index) => (
+            {tipList.map((tip, index) => (
               <li key={index}>✅ {tip}</li>
             ))}
           </ul>

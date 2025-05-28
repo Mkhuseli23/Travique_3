@@ -1,0 +1,56 @@
+.tip-form-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #f0f8ff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  margin-bottom: 0%;
+}
+
+.tip-form-container h2 {
+  text-align: center;
+  color: #246071;
+  margin-bottom: 20px;
+}
+
+.tip-form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.tip-form-container input,
+.tip-form-container select,
+.tip-form-container textarea {
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.tip-form-container textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.tip-form-container button {
+  padding: 12px;
+  background-color: #246071;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.tip-form-container button:hover {
+  background-color: #1d4e5f;
+}
+
+.success-message {
+  margin-top: 10px;
+  color: green;
+  font-weight: 500;
+  text-align: center;
+}

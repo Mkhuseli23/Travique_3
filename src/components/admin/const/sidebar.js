@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaTachometerAlt, FaUsers, FaChartBar, FaCog, FaHistory } from 'react-icons/fa'; // <-- Import FaHistory
+import { FaTachometerAlt, FaUsers, FaChartBar, FaCog, FaHistory, FaHeartbeat } from 'react-icons/fa';
 import './css/sidebar.css';
 
 const Sidebar = () => {
@@ -13,6 +13,11 @@ const Sidebar = () => {
         <li>
           <Link to="/admin">
             <FaTachometerAlt className="icon" /> Dashboard
+          </Link>
+        </li>
+        <li>
+          <Link to="/add-health-tips">
+            <FaHeartbeat className="icon" /> Add Health Tips
           </Link>
         </li>
         <li>

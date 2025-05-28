@@ -22,6 +22,7 @@ import UsersPage from './components/admin/UsersPage';
 import ReportPage from './components/admin/ReportPage';
 import SettingsPage from "./components/admin/SettingsPage";
 import AuditTrail from "./components/admin/AuditTrial";
+import HealthTipsForm from './components/admin/HealthTipsForm';
 
 
 function ScrollToTop() {
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
   {
     path: "audit",
     element: <AuditTrail/>
+  },
+  {
+    path: "add-health-tips",
+    element: <HealthTipsForm/>
   }
 ]);
 
